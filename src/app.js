@@ -9,12 +9,13 @@ const puppeteer = require("puppeteer");
   const newsTitles = await page.evaluate(() =>
     // scrapes: title, url, summary, category tag and category link
     Array.from(document.querySelectorAll("div.media__content")).map((i) => {
+      // console.log(i.querySelector("p.media__summary")?.textContent);
       return {
-        title: i.querySelector("h3.media__title")?.innerText?.trim(),
-        url: i.querySelector("h3.media__title")?.children?.[0]?.href,
-        summary: i.querySelector("p.media__summary")?.innerText,
-        categoryTag: i.querySelector("a.media__tag")?.innerText,
-        categoryLink: i.querySelector("a.media__tag")?.href,
+        title: i.querySelector("h3.media__title")?.innerText?.trim() || "",
+        url: i.querySelector("h3.media__title")?.children?.[0]?.href || "",
+        summary: i.querySelector("p.media__summary")?.textContent.trim() || "",
+        categoryTag: i.querySelector("a.media__tag")?.innerText.trim() || "",
+        categoryLink: i.querySelector("a.media__tag")?.href || "",
       };
     })
   );
