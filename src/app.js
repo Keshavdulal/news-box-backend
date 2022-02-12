@@ -59,6 +59,8 @@ const fetchData = async () => {
 
   // TODO: @Poojan setup firebase and try to push this array -> scrapedDataToStoreInFirebase to Firebase
   // make a function call here to trigger firebase push
+
+  
 };
 
 fetchData();
