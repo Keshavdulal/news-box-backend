@@ -19,3 +19,11 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+
+var database = firebase.database()
+
+const save = function(){
+  console.log("Firebase file")
+}
+
+module.exports = save;

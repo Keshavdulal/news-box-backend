@@ -1,3 +1,5 @@
+import {} from "./firebase.js"
+//const f = require("firebase")
 const fetch = require("node-fetch");
 // const puppeteer = require("puppeteer");
 
@@ -44,6 +46,7 @@ const rssFeeds = [
   "https://moxie.foxnews.com/feedburner/latest.xml", // fox
 ];
 
+
 const fetchData = async () => {
   let scrapedDataToStoreInFirebase = [];
 
@@ -59,7 +62,7 @@ const fetchData = async () => {
 
   // TODO: @Poojan setup firebase and try to push this array -> scrapedDataToStoreInFirebase to Firebase
   // make a function call here to trigger firebase push
-
+  save();
   
 };
 
