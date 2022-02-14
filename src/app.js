@@ -1,7 +1,10 @@
-import {} from "./firebase.js"
+import { db } from './firebase.js'
 //const f = require("firebase")
-const fetch = require("node-fetch");
+// const fetch = require("node-fetch");
+import fetch from 'node-fetch'
 // const puppeteer = require("puppeteer");
+
+import { doc, setDoc } from 'firebase/firestore'
 
 // #1
 // Web scraping mechanism with puppeteer
@@ -37,33 +40,37 @@ const fetch = require("node-fetch");
 // Use publicly available RSS Feed(XML) and convert them to JSON
 
 // XML Feed to JSON Service provider
-const baseURL = "https://www.toptal.com/developers/feed2json/convert?url=";
+const baseURL = 'https://www.toptal.com/developers/feed2json/convert?url='
 
 // Our input sources
 const rssFeeds = [
-  "https://feeds.bbci.co.uk/news/world/rss.xml", // bbc
-  "http://rss.cnn.com/rss/edition.rss", // cnn
-  "https://moxie.foxnews.com/feedburner/latest.xml", // fox
-];
-
+  'https://feeds.bbci.co.uk/news/world/rss.xml', // bbc
+  'http://rss.cnn.com/rss/edition.rss', // cnn
+  'https://moxie.foxnews.com/feedburner/latest.xml', // fox
+]
 
 const fetchData = async () => {
-  let scrapedDataToStoreInFirebase = [];
+  let scrapedDataArr = []
 
   // fetch data from each rssFeed source array using loop
   for (let i = 0; i < rssFeeds?.length; i++) {
-    let url = baseURL + rssFeeds[i];
-    const response = await fetch(url);
-    const data = await response.json();
-    scrapedDataToStoreInFirebase.push(data);
+    let url = baseURL + rssFeeds[i]
+    const response = await fetch(url)
+    const data = await response.json()
+    scrapedDataArr.push(data)
   }
 
-  console.log(scrapedDataToStoreInFirebase);
+  console.log(scrapedDataArr)
 
-  // TODO: @Poojan setup firebase and try to push this array -> scrapedDataToStoreInFirebase to Firebase
-  // make a function call here to trigger firebase push
-  save();
-  
-};
+  // TODO: Push Data to Firebase
+  for (let i = 0; i < scrapedDataArr.length; i++) {
+    let COLLECTION = 'ScrapedFeed'
+    let DOCUMENT_NAME = scrapedDataArr?.[i]?.title
+    let PAYLOAD = scrapedDataArr?.[i]?.items
 
-fetchData();
+    // console.log(COLLECTION, DOCUMENT_NAME, PAYLOAD)
+    await setDoc(doc(db, COLLECTION, DOCUMENT_NAME), { ...PAYLOAD })
+  }
+}
+
+fetchData()

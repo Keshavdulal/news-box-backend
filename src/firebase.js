@@ -1,29 +1,36 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
+import { initializeApp } from 'firebase/app'
+import { getFirestore } from 'firebase/firestore'
+// import { getAnalytics } from 'firebase/analytics'
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBGhsb4drARP7TiSmYf10usK84Klz--l6A",
-  authDomain: "news-box-7ccde.firebaseapp.com",
-  databaseURL: "https://news-box-7ccde-default-rtdb.firebaseio.com",
-  projectId: "news-box-7ccde",
-  storageBucket: "news-box-7ccde.appspot.com",
-  messagingSenderId: "779260968038",
-  appId: "1:779260968038:web:ddccf21e51473c5f2bc1a7",
-  measurementId: "G-5M46686NF2"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-
-var database = firebase.database()
-
-const save = function(){
-  console.log("Firebase file")
+  // apiKey: process.env.APIKEY,
+  // authDomain: process.env.AUTHDOMAIN,
+  // projectId: process.env.PROJECTID,
+  // storageBucket: process.env.STORAGEBUCKET,
+  // messagingSenderId: process.env.MESSAGINGSENDERID,
+  // appId: process.env.APPID,
+  // TODO: migrate credentials to .env
+  apiKey: 'AIzaSyCcyLI1lJYa_fjII6wIOrzPXYcxieLFkJw',
+  authDomain: 'newsbox-df019.firebaseapp.com',
+  projectId: 'newsbox-df019',
+  storageBucket: 'newsbox-df019.appspot.com',
+  messagingSenderId: '1049034237750',
+  appId: '1:1049034237750:web:0bef049d7d67ccf313b597',
+  measurementId: 'G-3HX1Q2WGFL',
 }
 
-module.exports = save;
+const firebaseApp = initializeApp(firebaseConfig)
+const db = getFirestore(firebaseApp)
+// console.log('*****', db)
+
+// const analytics = getAnalytics(firebaseApp)
+
+// var database = firebase.database();
+
+// const save = function () {
+//   console.log("Firebase file");
+// };
+
+// module.exports = save;
+
+export { db }
